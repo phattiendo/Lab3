@@ -1,0 +1,65 @@
+/* styles.css */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Kanit', sans-serif;
+}
+h1{
+    font-family: 'Rubik Pixels', cursive;
+}
+
+.carousel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 60%;
+    margin: 0 auto;
+    
+}
+
+.center-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.carousel-item img{
+    border-radius: 20px;
+}
+
+footer {
+    background-color: #333;
+    padding: 40px 0;
+    color: #fff;
+    text-align: center;
+}
+.image-sandau{
+    background-image: url('images/sanc1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.image-bongda{
+    background-image: url('images/bongda.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.carousel-inner{
+    border-radius: 20px; 
+}
+.text-shadow{
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+.btn-large{
+    font-size: 24px;
+    padding: 16px 24px;
+}
+.btn-large{
+    font-size: 24px;
+    padding: 16px 24px;
+}

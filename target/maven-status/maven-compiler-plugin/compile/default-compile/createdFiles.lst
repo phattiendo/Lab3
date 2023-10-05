@@ -1,0 +1,7 @@
+com\hungdt\HibernateUtils.class
+com\hungdt\CrudDAO.class
+com\hungdt\PhoneDAO.class
+com\hungdt\App.class
+com\hungdt\Phone.class
+com\hungdt\Manufacture.class
+com\hungdt\ManufactureDAO.class

@@ -1,0 +1,94 @@
+Khách hàng khi vào trang web có thể:
+
+Tìm kiếm sân bóng đá theo địa chỉ và các tiêu chí khác.
+Đăng ký tài khoản thành viên để quản lý các thông tin cá nhân của mình.
+Đặt sân bóng đá trực tuyến và chọn các dịch vụ đi kèm.
+Thanh toán trực tuyến và xem thông tin chi tiết về các đơn đặt hàng của mình.
+Xem lịch sử đặt sân, điểm thưởng và các thông báo mới nhất từ sân bóng đá.
+
+Admin khi vào trang web có thể:
+
+Quản lý thông tin sân bóng đá, bao gồm cập nhật thông tin về sân bóng đá, giá cả, lịch trình và các dịch vụ đi kèm.
+Quản lý thông tin khách hàng và các đơn đặt hàng, bao gồm xem lịch sử đặt sân của khách hàng, xử lý các yêu cầu hỗ trợ và đánh giá phản hồi của khách hàng.
+Quản lý tài khoản thành viên và xem các thống kê về hoạt động trên trang web.
+Gửi thông báo và khuyến mãi đến khách hàng thông qua email hoặc tin nhắn để giới thiệu các dịch vụ mới.
+Tạo lịch trình sân và quản lý các dịch vụ đi kèm.
+
+Một số chức năng quản lý sân bóng đá có thể bao gồm:
+
+Đăng nhập và đăng ký tài khoản.
+Tìm kiếm sân bóng đá theo địa chỉ và các tiêu chí khác.
+Đặt sân bóng đá trực tuyến và chọn các dịch vụ đi kèm.
+Thanh toán trực tuyến và xem thông tin chi tiết về các đơn đặt hàng của mình.
+Xem lịch sử đặt sân, điểm thưởng và các thông báo mới nhất từ sân bóng đá.
+Quản lý thông tin sân bóng đá, bao gồm cập nhật thông tin về sân bóng đá, giá cả, lịch trình và các dịch vụ đi kèm.
+Quản lý thông tin khách hàng và các đơn đặt hàng, bao gồm xem lịch sử đặt sân của khách hàng, xử lý các yêu cầu hỗ trợ và đánh giá phản hồi của khách hàng.
+Quản lý tài khoản thành viên và xem các thống kê v
+
+
+
+nếu trùng tên sân và trang thái = trống thì lụm
+
+
+
+
+<?php
+// Lấy tên đăng nhập hiện tại từ website
+$tendn_hientai = $_SESSION['tendn']; // Giả sử tên đăng nhập được lưu trong biến session
+
+// Kết nối đến cơ sở dữ liệu
+$servername = "your_servername";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_database";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Câu truy vấn SQL để lấy lịch sử đặt sân dựa trên tên đăng nhập hiện tại
+$sql = "SELECT datsan.ngaydatsan, datsan.giodatsan, datsan.gioketthuc, sanbong.tensan
+        FROM datsan
+        JOIN sanbong ON datsan.tensan = sanbong.tensan
+        JOIN taikhoan ON datsan.sdt = taikhoan.sdt
+        WHERE taikhoan.tendn = '$tendn_hientai'
+        ORDER BY datsan.ngaydatsan DESC";
+
+$result = $conn->query($sql);
+
+// Kiểm tra và hiển thị kết quả
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        // Hiển thị thông tin lịch sử đặt sân
+        echo "Ngày đặt sân: " . $row['ngaydatsan'] . "<br>";
+        echo "Giờ đặt sân: " . $row['giodatsan'] . "<br>";
+        echo "Giờ kết thúc: " . $row['gioketthuc'] . "<br>";
+        echo "Tên sân: " . $row['tensan'] . "<br>";
+        echo "------------------------------<br>";
+    }
+} else {
+    echo "Không có lịch sử đặt sân.";
+}
+
+// Đóng kết nối
+$conn->close();
+?>
+
+
+này là sql:
+SELECT datsan.ngaydatsan, datsan.giodatsan, datsan.gioketthuc, sanbong.tensan
+FROM datsan
+JOIN sanbong ON datsan.tensan = sanbong.tensan
+JOIN taikhoan ON datsan.sdt = taikhoan.sdt
+WHERE taikhoan.tendn = 'tên đăng nhập cần lọc'
+ORDER BY datsan.ngaydatsan DESC;
+
+
+
+<form method="post" action="history.php">
+  <input type="text" name="tendn" placeholder="Tên đăng nhập">
+  <input type="submit" value="Lấy lịch sử đặt sân">
+</form>
